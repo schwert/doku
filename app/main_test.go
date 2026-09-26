@@ -19,9 +19,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/amerkurev/doku/app/docker"
-	"github.com/amerkurev/doku/app/types"
-	"github.com/amerkurev/doku/app/util"
+	"github.com/schwert/doku/app/docker"
+	"github.com/schwert/doku/app/types"
+	"github.com/schwert/doku/app/util"
 )
 
 func Test_Main(t *testing.T) {

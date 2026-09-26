@@ -14,10 +14,10 @@ import (
 	"github.com/jessevdk/go-flags"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/amerkurev/doku/app/bindmount"
-	"github.com/amerkurev/doku/app/docker"
-	"github.com/amerkurev/doku/app/http"
-	"github.com/amerkurev/doku/app/types"
+	"github.com/schwert/doku/app/bindmount"
+	"github.com/schwert/doku/app/docker"
+	"github.com/schwert/doku/app/http"
+	"github.com/schwert/doku/app/types"
 )
 
 var opts struct {

@@ -12,10 +12,10 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/amerkurev/doku/app/docker"
-	"github.com/amerkurev/doku/app/store"
-	"github.com/amerkurev/doku/app/types"
-	"github.com/amerkurev/doku/app/util"
+	"github.com/schwert/doku/app/docker"
+	"github.com/schwert/doku/app/store"
+	"github.com/schwert/doku/app/types"
+	"github.com/schwert/doku/app/util"
 )
 
 // CalcSize calculates the size of directories that mounted into containers (bind type).

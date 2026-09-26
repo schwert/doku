@@ -9,7 +9,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/amerkurev/doku/app/docker"
+	"github.com/schwert/doku/app/docker"
 )
 
 // Server is a server for http.

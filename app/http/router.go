@@ -6,13 +6,13 @@ import (
 	"os"
 	"path"
 
-	"github.com/amerkurev/doku/app/docker"
 	"github.com/go-chi/chi/v5"
 	chiMiddleware "github.com/go-chi/chi/v5/middleware"
+	"github.com/schwert/doku/app/docker"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/amerkurev/doku/app/http/handler"
-	"github.com/amerkurev/doku/app/http/middleware"
+	"github.com/schwert/doku/app/http/handler"
+	"github.com/schwert/doku/app/http/middleware"
 )
 
 // CreateRouter creates an HTTP route multiplexer.
