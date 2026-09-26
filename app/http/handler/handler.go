@@ -4,6 +4,10 @@ package handler
 import (
 	"context"
 	"encoding/json"
+	"github.com/docker/docker/api/types/build"
+	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/api/types/image"
+	"github.com/docker/docker/api/types/volume"
 	"net/http"
 	"os"
 	"path"
@@ -83,7 +87,7 @@ func DockerContainerList(ctx context.Context, d *docker.Client) http.HandlerFunc
 		}
 
 		b, err := json.Marshal(struct {
-			Containers []*dockerTypes.ContainerJSON
+			Containers []*container.InspectResponse
 			TotalSize  int64
 		}{
 			Containers: res,
@@ -102,7 +106,7 @@ func DockerContainerList(ctx context.Context, d *docker.Client) http.HandlerFunc
 // DockerDiskUsage returns disk usage of the docker daemon.
 func DockerDiskUsage(ctx context.Context, d *docker.Client) http.HandlerFunc {
 	return func(w http.ResponseWriter, _ *http.Request) {
-		res, err := d.DiskUsage(ctx)
+		res, err := d.DiskUsage(ctx, dockerTypes.DiskUsageOptions{})
 		if err != nil {
 			internalServerError(w, err, "failed to execute request: docker disk usage")
 			return
@@ -113,13 +117,13 @@ func DockerDiskUsage(ctx context.Context, d *docker.Client) http.HandlerFunc {
 
 		// prevent null value for JSON array fields
 		if res.Images == nil {
-			res.Images = make([]*dockerTypes.ImageSummary, 0)
+			res.Images = make([]*image.Summary, 0)
 		}
 		if res.Volumes == nil {
-			res.Volumes = make([]*dockerTypes.Volume, 0)
+			res.Volumes = make([]*volume.Volume, 0)
 		}
 		if res.BuildCache == nil {
-			res.BuildCache = make([]*dockerTypes.BuildCache, 0)
+			res.BuildCache = make([]*build.CacheRecord, 0)
 		}
 
 		b, err := json.Marshal(res)
@@ -227,7 +231,7 @@ func DiskUsage(ctx context.Context) http.HandlerFunc {
 	}
 }
 
-func logFileSize(ci *dockerTypes.ContainerJSON, volumes []types.HostVolume) (*types.LogFileInfo, error) {
+func logFileSize(ci *container.InspectResponse, volumes []types.HostVolume) (*types.LogFileInfo, error) {
 	var err error
 	for _, vol := range volumes {
 		p := path.Join(vol.Path, ci.LogPath)

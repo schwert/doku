@@ -3,10 +3,10 @@ package docker
 
 import (
 	"context"
+	"github.com/docker/docker/api/types/container"
 	"net/http"
 	"path/filepath"
 
-	"github.com/docker/docker/api/types"
 	docker "github.com/docker/docker/client"
 	"github.com/docker/go-connections/tlsconfig"
 )
@@ -17,13 +17,13 @@ type Client struct {
 }
 
 // ContainerJSONList returns the list of the container information.
-func (c *Client) ContainerJSONList(ctx context.Context) ([]*types.ContainerJSON, error) {
-	containers, err := c.ContainerList(ctx, types.ContainerListOptions{All: true})
+func (c *Client) ContainerJSONList(ctx context.Context) ([]*container.InspectResponse, error) {
+	containers, err := c.ContainerList(ctx, container.ListOptions{All: true})
 	if err != nil {
 		return nil, err
 	}
 
-	res := make([]*types.ContainerJSON, 0, len(containers))
+	res := make([]*container.InspectResponse, 0, len(containers))
 
 	for _, cont := range containers {
 		ci, _, err := c.ContainerInspectWithRaw(ctx, cont.ID, true)

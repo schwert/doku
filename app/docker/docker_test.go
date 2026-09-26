@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/docker/docker/api/types/events"
 	"io"
 	"math/rand"
 	"testing"
@@ -52,7 +53,7 @@ func Test_Client(t *testing.T) {
 	assert.Equal(t, "arm64", ver.Arch)
 
 	// get data usage information.
-	du, err := d.DiskUsage(ctx)
+	du, err := d.DiskUsage(ctx, types.DiskUsageOptions{})
 	assert.NoError(t, err)
 	assert.Equal(t, "alpine:edge", du.Containers[0].Image)
 	assert.Equal(t, int64(5349283), du.Containers[0].SizeRootFs)
@@ -73,7 +74,7 @@ func Test_Client(t *testing.T) {
 }
 
 func getEvents(ctx context.Context, d *Client) (int, error) {
-	messages, errs := d.Events(ctx, types.EventsOptions{})
+	messages, errs := d.Events(ctx, events.ListOptions{})
 	eventCount := 0
 	for {
 		select {

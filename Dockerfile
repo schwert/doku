@@ -4,7 +4,7 @@ ARG GIT_BRANCH
 ARG GITHUB_SHA
 ARG CI
 
-ENV GOFLAGS="-mod=vendor"
+#ENV GOFLAGS="-mod=vendor"
 ENV CGO_ENABLED=0
 ENV GOOS=linux
 
