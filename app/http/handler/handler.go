@@ -126,6 +126,9 @@ func DockerDiskUsage(ctx context.Context, d *docker.Client) http.HandlerFunc {
 			res.BuildCache = make([]*build.CacheRecord, 0)
 		}
 
+		// FIXME: avoid crashing the frontend https://docs.docker.com/reference/api/engine/version-history/#v142-api-changes
+		res.BuilderSize = 0
+
 		b, err := json.Marshal(res)
 		if err != nil {
 			internalServerError(w, err, "failed to encode as JSON: docker disk usage")
